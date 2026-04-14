@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { Suspense } from 'react'
 import './App.css'
+import Countries from './components/Countries/Countries'
+
+const countryPromise = fetch('https://openapi.programming-hero.com/api/all')
+.then(res => res.json())
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-      <section id="center">
+      
         <h1>Let's Discover the World!!</h1>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <Countries countryPromise={countryPromise}></Countries>
+      </Suspense>
     </>
   )
 }
